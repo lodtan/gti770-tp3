@@ -19,16 +19,15 @@ if __name__ == "__main__":
     cache_size = 2048
     k = 5
 
-    cv = StratifiedShuffleSplit(n_splits=k, test_size=0.2, random_state=42)
     svc = SVC(cache_size=cache_size)
 
     #param_grid_linear = {'kernel': ['linear'], 'C': [10 ** (-3), 10 ** (-1), 1, 10], 'class_weight': ['balanced'],
     #                     'gamma': ['scale']}
 
-    param_grid_linear = {'kernel': ['linear'], 'C': [10 ** (-1), 1, 10], 'class_weight': ['balanced'],
+    param_grid_linear = {'kernel': ['linear'], 'C': [10**(-3),10**(-1), 1, 10], 'class_weight': ['balanced'],
                          'gamma': ['scale']}
 
-    grid_linear = GridSearchCV(svc, param_grid=param_grid_linear, cv=cv, n_jobs=-1, scoring='accuracy', verbose=4)
+    grid_linear = GridSearchCV(svc, param_grid=param_grid_linear, cv=k, n_jobs=jobs, scoring='accuracy', verbose=4)
     grid_linear.fit(X_train, Y_train)
 
     print("LINEAR : The best hyperparameters are %s with a score of %0.2f" % (
@@ -48,6 +47,7 @@ if __name__ == "__main__":
 
     grid=grid_linear
     score_dict = grid.cv_results_
+
 
     # We extract just the scores
     scores = [x[1] for x in score_dict]
