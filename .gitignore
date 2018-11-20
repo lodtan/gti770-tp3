@@ -142,6 +142,5 @@ pyvenv.cfg
 pip-selfcheck.json
 
 ### Personal .ipynb file ###
-tp3 - tan.ipynb
-/logs
+
 # End of https://www.gitignore.io/api/python,jupyternotebook
